@@ -26,6 +26,7 @@ class MainController < ApplicationController
       doc = Nokogiri::HTML.parse(html)
       @site.title = doc.title
       @site.body = doc.at_css('.body-text').text
+      #@site.body = doc.at_css('.content--summary').text
       @site.time = doc.at_css('time').text
 
       if @site.save
