@@ -1,0 +1,93 @@
+<head>
+  <title>スクレイピングアプリケーション</title>
+  <style>
+    h1 {
+      color:rgb(255, 255, 255);
+      text-align: center;
+    }
+    #top {
+      background:rgb(167, 166, 167);
+      padding-top: 50px;
+      padding-bottom: 100px;
+      padding-left: 100px;
+      padding-right: 100px;
+      margin: -10px;
+    }
+    #top_field_button_area {
+      text-align: center;
+    }
+    #top_field input[type="text"] {
+      font-size: 17px;
+      height: 50px;
+      width: 350px;
+      margin-top: 27px;
+      margin-left: 30px;
+      margin-right: 27px;
+      border-color: rgb(205, 205, 205);
+      border-radius: 5px;
+    }
+    #top_button input[type="submit"] {
+      font-size: 17px; /* フォントサイズを変更 */
+      margin: -10px;
+      padding: 10px 60px; /* 内部余白を変更 */
+      background-color: rgb(255, 255, 255); /* ボタンの背景色 */
+      color: rgb(0, 0, 0); /* ボタンの文字色 */
+      border-color: rgb(139, 139, 139); /* デフォルトのボーダーを削除 */
+      border-radius: 5px; /* 角を丸く */
+    }
+    ::placeholder {
+      padding-left: 10px;
+      color: rgb(205, 205, 205);
+    }
+    #table {
+      align: center;
+      margin-top: 43px;
+    }
+    #error {
+      padding-left: 530px;
+    }
+  </style>
+</head>
+
+<div id=top>
+  <h1>スクレイピングアプリケーション</h1>
+
+  <div id=top_field_button_area>
+    <%= form_with model: @site, url: main_path do |form| %>
+      <span id=top_field>
+        <%= form.text_field :url, placeholder: "スクレイピングするURLを入力"%>
+      </span>
+
+      <% @site.errors.full_messages_for(:url).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+      
+      <button id=top_button>
+          <%= form.submit "実行" %>
+      </button>
+    <% end %>
+  </div>
+  <div id=error>
+    <% if @urlopenerror==1 %>
+      ※入力されていないか、不正なURLです
+    <% end %>
+  </div>
+</div>
+
+
+<div id=table>
+  <table border="1" align="center" style="border-collapse: collapse" >
+    <tr height="60" style="background:rgb(203, 203, 203)">
+      <th width="250">タイトル</th>
+      <th width="100">日時</th>
+      <th width="700">本文</th>
+    </tr>
+    <% @sites&.each do |site| %>
+   <tr>
+      <td><b><%= site.title %></b></td>
+      <td><%= site.time %></td>
+      <td><%= site.body %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>
