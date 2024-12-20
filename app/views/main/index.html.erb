@@ -80,12 +80,16 @@
     <tr height="60" style="background:rgb(203, 203, 203)">
       <th width="250">タイトル</th>
       <th width="100">日時</th>
+      <th width="100">リンクスコア</th>
+      <th width="450">要約</th>
       <th width="700">本文</th>
     </tr>
     <% @sites&.each do |site| %>
    <tr>
       <td><b><%= site.title %></b></td>
       <td><%= site.time %></td>
+      <td style="text-align: center"><%= site.linkscore %></td>
+      <td><%= site.summary %></td>
       <td><%= site.body %></td>
     </tr>
     <% end %>
